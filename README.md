@@ -69,6 +69,7 @@ Step10. Double click on the the MCU part to open settings. Next to the Program F
 Step14. click on debug and simulate using simulation as shown below image
 
 STM 32 CUBE PROGRAM :
+```
 #include "main.h"
 
 
@@ -210,7 +211,7 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 }
 #endif
-
+```
 
 Output screen shots of proteus :
 image
@@ -220,7 +221,7 @@ image
 
 DUTY CYCLE AND FREQUENCY CALCULATION
 image
-
+```
 TON = 3 x 10 x 10^-6
     = 0.00003
 TOFF=0.00003
@@ -235,8 +236,9 @@ DUTY CYCLE = TON /(TON+TOFF)
            = 0.5
       IN % =0.5*100 
            = 50 %
+```
 image
-
+```
 TON = 4 x 10 x 10^-6
     = 0.00004
 TOFF= 2 x 10 x 10^-6
@@ -251,8 +253,9 @@ DUTY CYCLE = TON /(TON+TOFF)
            = 0.7
       IN % =0.7*100 
            = 70 %
+```
 image
-
+```
 TON = 1 x 50 x 10^-6
     = 0.00005
 TOFF= 0.1 x 50 x 10^-6
@@ -267,5 +270,6 @@ DUTY CYCLE = TON /(TON+TOFF)
            = 0.9
       IN % =0.9*100 
            = 90 %
+```
 Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated
