@@ -1,12 +1,12 @@
-EXPERIMENT 07 SQUARE WAVE GENERATION AT THE OUTPUT PIN USING TIMER
+## EXPERIMENT 07 SQUARE WAVE GENERATION AT THE OUTPUT PIN USING TIMER
 
-Aim:
+# Aim:
 To generate a PWM wave at the timer pin output and simuate it on proteus using an virtual oscilloscope
 
-Components required:
+# Components required:
 STM32 CUBE IDE, Proteus 8 simulator .
 
-Theory:
+# Theory:
 The timer modules can operate a variety of modes one of which is the PWM mode. Where the timer gets clocked from an internal source and counts up to the auto-reload register value, then the output channel pin is driven HIGH. And it remains until the timer counts reach the CCRx register value, the match event causes the output channel pin to be driven LOW. And it remains until the timer counts up to the auto-reload register value, and so on.
 
 The resulting waveform is called PWM (pulse-width modulated) signal. Whose frequency is determined by the internal clock, the Prescaler, and the ARRx register. And its duty cycle is defined by the channel CCRx register value. The PWM doesn’t always have to be following this exact same procedure for PWM generation, however, it’s the very basic one and the easier to understand the concept. It’s called the up-counting PWM mode. We’ll discuss further advanced PWM generation techniques as we go on in this series of tutorials.
@@ -15,7 +15,9 @@ The following diagram shows you how the ARR value affects the period (frequency)
 
 STM32 Timers – PWM Output Channels
 
-Each Capture/Compare channel is built around a capture/compare register (including a shadow register), an input stage for capture (with a digital filter, multiplexing, and Prescaler) and an output stage (with comparator and output control). The output stage generates an intermediate waveform which is then used for reference: OCxRef (active high). The polarity acts at the end of the chain. image
+Each Capture/Compare channel is built around a capture/compare register (including a shadow register), an input stage for capture (with a digital filter, multiplexing, and Prescaler) and an output stage (with comparator and output control). The output stage generates an intermediate waveform which is then used for reference: OCxRef (active high). The polarity acts at the end of the chain. 
+![Screenshot 2025-05-09 132100](https://github.com/user-attachments/assets/a48176d2-efcf-4b43-80ba-f769ac71fe61)
+
 
 STM32 Timers In PWM Mode
 
@@ -31,44 +33,57 @@ In various applications, you’ll be in need to generate a PWM signal with a spe
 
 The PWM period (1/FPWM) is defined by the following parameters: ARR value, the Prescaler value, and the internal clock itself which drives the timer module FCLK. The formula down below is to be used for calculating the FPWM for the output. You can set the clock you’re using, the Prescaler, and solve for the ARR value in order to control the FPWM and get what you want.
 
-STM32 PWM Frequency Formula - STM32 PWM Frequency Equation image
+STM32 PWM Frequency Formula - STM32 PWM Frequency Equation
+![Screenshot 2025-05-09 132202](https://github.com/user-attachments/assets/4fe7c156-f2db-4437-a80e-7c7943d067e6)
+
 
 STM32 PWM Duty Cycle
 
-In normal settings, assuming you’re using the timer module in PWM mode and generating PWM signal in edge-aligned mode up-counting configuration. The duty cycle percentage is controlled by changing the value of the CCRx register. And the duty cycle equals (CCRx/ARR) [%]. image
+In normal settings, assuming you’re using the timer module in PWM mode and generating PWM signal in edge-aligned mode up-counting configuration. The duty cycle percentage is controlled by changing the value of the CCRx register. And the duty cycle equals (CCRx/ARR) [%].
+![Screenshot 2025-05-09 132227](https://github.com/user-attachments/assets/1ca65b6a-dd38-4b00-b949-2cbead9ed291)
 
-Procedure:
-Step1: Open CubeMX & Create New Project image
+
+# Procedure:
+Step1: Open CubeMX & Create New Project
+![Screenshot 2025-05-09 132259](https://github.com/user-attachments/assets/a5af0987-9068-4a5b-b4b5-1c0122655346)
+
+
 
 Step2: Choose The Target MCU & Double-Click Its Name select the target to be programmed as shown below and click on next
+![Screenshot 2025-05-09 132347](https://github.com/user-attachments/assets/f61f7c2d-a3d2-4fc2-a9ee-5a104240fbd0)
+![Screenshot 2025-05-09 132417](https://github.com/user-attachments/assets/6fc346ec-d109-4434-b757-6cd88caaf5ad)
 
-image image
 
-image
+Step3: Configure Timer2 Peripheral To Operate In PWM Mode With CH1 Output
+![Screenshot 2025-05-09 132459](https://github.com/user-attachments/assets/e6d6b82e-6939-4c99-8172-81200cf95304)
 
-Step3: Configure Timer2 Peripheral To Operate In PWM Mode With CH1 Output image
+Step4: Set The RCC External Clock Source
+![Screenshot 2025-05-09 132533](https://github.com/user-attachments/assets/38bbea6e-2c92-41c1-b5b8-5d49d5a49339)
 
-Step4: Set The RCC External Clock Source image
 
 STM32 RCC External Clock Selection CubeMX
 
 Step5: Go To The Clock Configuration
 
-Step6: Set The System Clock To Be 72MHz image
+Step6: Set The System Clock To Be 72MHz
+![Screenshot 2025-05-09 132559](https://github.com/user-attachments/assets/30fe54d9-2d7a-46ca-8d6b-cdf585593cf5)
+
 
 Step7: Name & Generate The Project Initialization Code For CubeIDE or The IDE You’re Using
 
 Step8. Creating Proteus project and running the simulation We are now at the last part of step by step guide on how to simulate STM32 project in Proteus.
 
 Step9. Create a new Proteus project and place STM32F40xx i.e. the same MCU for which the project was created in STM32Cube IDE. 14. After creation of the circuit as per requirement as shown below
+![Screenshot 2025-05-09 132631](https://github.com/user-attachments/assets/6fc56c7e-e80a-4133-8c01-a4a1db18abf8)
 
-image
 
 Step10. Double click on the the MCU part to open settings. Next to the Program File option, give full path to the Hex file generated using STM32Cube IDE. Then set the external crystal frequency to 8M (i.e. 8 MHz). Click OK to save the changes.
 
-Step14. click on debug and simulate using simulation as shown below image
+Step14. click on debug and simulate using simulation as shown below 
+![Screenshot 2025-05-09 132704](https://github.com/user-attachments/assets/451ca3da-b77a-4937-9410-94fccbf8e1b7)
 
-STM 32 CUBE PROGRAM :
+
+# STM 32 CUBE PROGRAM :
 ```
 #include "main.h"
 
@@ -213,14 +228,16 @@ void assert_failed(uint8_t *file, uint32_t line)
 #endif
 ```
 
-Output screen shots of proteus :
-image
+# Output screen shots of proteus :
+![Screenshot 2025-05-09 131153](https://github.com/user-attachments/assets/a77dd1ec-f03b-4e33-b3ee-2fa0c521c0e7)
 
-CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE):
-image
+# CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE):
+![Screenshot 2025-05-09 131140](https://github.com/user-attachments/assets/93487f1b-4dc4-411c-9637-00ea59487682)
+
 
 DUTY CYCLE AND FREQUENCY CALCULATION
-image
+![Screenshot 2025-05-09 132825](https://github.com/user-attachments/assets/9b298561-db2d-4151-a901-ef11ee0b1a50)
+
 ```
 TON = 3 x 10 x 10^-6
     = 0.00003
@@ -237,7 +254,8 @@ DUTY CYCLE = TON /(TON+TOFF)
       IN % =0.5*100 
            = 50 %
 ```
-image
+![Screenshot 2025-05-09 132857](https://github.com/user-attachments/assets/76d80b5a-3688-4e50-8fc5-d3a1cbe7831b)
+
 ```
 TON = 4 x 10 x 10^-6
     = 0.00004
@@ -254,7 +272,8 @@ DUTY CYCLE = TON /(TON+TOFF)
       IN % =0.7*100 
            = 70 %
 ```
-image
+![Screenshot 2025-05-09 132929](https://github.com/user-attachments/assets/4bfa2b32-98bb-426b-8403-96c5cb016ef2)
+
 ```
 TON = 1 x 50 x 10^-6
     = 0.00005
@@ -271,5 +290,5 @@ DUTY CYCLE = TON /(TON+TOFF)
       IN % =0.9*100 
            = 90 %
 ```
-Result :
+# Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated
